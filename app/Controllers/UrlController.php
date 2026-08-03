@@ -73,7 +73,7 @@ class UrlController
             && strtotime((string) $row['expires_at']) <= time();
 
         if ($row === null || $expired) {
-            View::render('404', [], 404);
+            View::render('404', 404);
             return;
         }
 
