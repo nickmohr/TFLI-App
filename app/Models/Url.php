@@ -55,6 +55,7 @@ class Url
         return $code;
     }
 
+    /** @return array<string, mixed>|null */
     public static function findByCode(string $code): ?array
     {
         $stmt = Database::getConnection()->prepare('SELECT * FROM urls WHERE code = :code');
@@ -64,6 +65,7 @@ class Url
         return $row === false ? null : $row;
     }
 
+    /** @return array<string, mixed>|null */
     public static function findByUrlExpiry(string $longUrl, ?string $expiresAt): ?array
     {
         $stmt = Database::getConnection()->prepare(

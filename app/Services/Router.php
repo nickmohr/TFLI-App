@@ -6,6 +6,9 @@ namespace App\Services;
 
 class Router
 {
+    /**
+     * @var array<int, array{requestMethod: string, path: string, class: string, methodName: string}>
+     */
     private array $routes = [];
 
     public function add(string $path, string $requestMethod, string $class, string $methodName): void
@@ -64,6 +67,7 @@ class Router
 
     /**
      * Returns captured {placeholder} values, or null if no match.
+     * @return array<int, string>|null
      */
     private function match(string $pattern, string $path): ?array
     {
