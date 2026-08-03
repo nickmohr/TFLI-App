@@ -10,6 +10,6 @@ class IndexController
 {
     public function index(): void
     {
-        View::render('index');
+        View::render('index', 200);
     }
 }

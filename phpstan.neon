@@ -1,0 +1,10 @@
+parameters:
+    level: 8
+    phpVersion: 80200
+    paths:
+        - app
+        - public
+    bootstrapFiles:
+        - phpstan-bootstrap.php
+    dynamicConstantNames:
+        - APP_ENV

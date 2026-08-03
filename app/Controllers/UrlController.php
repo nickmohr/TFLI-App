@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Services\View;
-use App\Services\Router;
 use App\Models\Url;
+use App\Services\Router;
+use App\Services\View;
 
 class UrlController
 {
