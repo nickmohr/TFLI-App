@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Services\View;
+
 class IndexController
 {
     public function index(): void
     {
-        echo 'Hello, World!';
+        View::render('index');
     }
 }
