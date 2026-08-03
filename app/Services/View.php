@@ -10,9 +10,9 @@ class View
     {
         extract($data);
         http_response_code($responseStatus);
-        include APP_ROOT . '/views/layout/header.php';
-        include APP_ROOT . '/views/' . $template . '.php';
-        include APP_ROOT . '/views/layout/footer.php';
+        include APP_ROOT . '/app/Views/layout/header.php';
+        include APP_ROOT . '/app/Views/' . $template . '.php';
+        include APP_ROOT . '/app/Views/layout/footer.php';
     }
 
     public static function renderJson(array $data, int $responseStatus = 200): void
