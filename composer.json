@@ -1,0 +1,17 @@
+{
+    "name": "nick/tfli-app",
+    "description": "A simple PHP application for TFLI",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "require": {
+        "php": "^8.2"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.2",
+        "friendsofphp/php-cs-fixer": "^3.95"
+    }
+}
