@@ -6,12 +6,25 @@ namespace App\Controllers;
 
 use App\Models\Url;
 use App\Services\Router;
+use App\Services\Security;
 use App\Services\View;
 
 class UrlController
 {
+    private const URL_MAX_LENGTH = 2048;
+    private const EXPIRES_AT_MAX_LENGTH = 19;
+
     public function create(): void
     {
+        $csrfToken = null;
+        if (isset($_SERVER['HTTP_X_CSRF_TOKEN'])) {
+            $csrfToken = trim((string) $_SERVER['HTTP_X_CSRF_TOKEN']);
+        }
+
+        if (!Security::verifyCsrfToken($csrfToken)) {
+            View::renderJson(['success' => false, 'error' => 'Invalid CSRF token. Please refresh and try again.'], 419);
+            return;
+        }
 
         $post = filter_input_array(INPUT_POST, [
             'url' => FILTER_UNSAFE_RAW,
@@ -24,11 +37,17 @@ class UrlController
         $expiresAt = null;
         $errors = [];
 
-        if (
+        if (strlen($url) > self::URL_MAX_LENGTH) {
+            $errors[] = 'URL must be 2048 characters or fewer.';
+        } elseif (
             filter_var($url, FILTER_VALIDATE_URL) === false
             || !in_array(parse_url($url, PHP_URL_SCHEME), ['http', 'https'], true)
         ) {
             $errors[] = 'Please provide a valid URL starting with http:// or https://.';
+        }
+
+        if (strlen($expiresRaw) > self::EXPIRES_AT_MAX_LENGTH) {
+            $errors[] = 'Expiry date value is too long.';
         } elseif ($expiresRaw !== '') {
             $expiry = \DateTimeImmutable::createFromFormat('!Y-m-d\TH:i', $expiresRaw)
                 ?: \DateTimeImmutable::createFromFormat('!Y-m-d\TH:i:s', $expiresRaw);

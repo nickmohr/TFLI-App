@@ -12,6 +12,7 @@ class IndexController
     public function index(): void
     {
         $nonce = Security::cspNonce();
-        View::render('index', 200, ['nonce' => $nonce]);
+        $csrfToken = Security::csrfToken();
+        View::render('index', 200, ['nonce' => $nonce, 'csrfToken' => $csrfToken]);
     }
 }
