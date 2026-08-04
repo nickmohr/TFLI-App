@@ -23,9 +23,10 @@ class Router
 
     public function dispatch(): void
     {
-
         $method = isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : 'GET';
         $path = $this->requestUri();
+
+        // Iterate through the registered routes to find a match.s
         foreach ($this->routes as $route) {
             if ($route['requestMethod'] !== $method) {
                 continue;
@@ -56,10 +57,6 @@ class Router
         return $scheme . '://' . $host;
     }
 
-    /**
-     * Request path relative to the app's base URL, so the app
-     * works at the domain root or in a subdirectory.
-     */
     private function requestUri(): string
     {
         $uri = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
@@ -75,11 +72,12 @@ class Router
      */
     private function match(string $pattern, string $path): ?array
     {
+        // If the pattern is exactly the same as the path, return an empty array (no captured values).
         if ($pattern === $path) {
             return [];
         }
 
-        // Placeholders match a single path segment.
+        // Convert the pattern to a regex, replacing {placeholder} with a capturing group.
         $regex = preg_replace('/\\\{[a-zA-Z_]+\\\}/', '([^/]+)', preg_quote($pattern, '#'));
         if (preg_match('#^' . $regex . '$#', $path, $matches) === 1) {
             return array_slice($matches, 1);

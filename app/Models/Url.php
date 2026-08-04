@@ -20,7 +20,7 @@ class Url
             'INSERT INTO urls (code, long_url, expires_at) VALUES (:code, :long_url, :expires_at)',
         );
 
-        // Retry on the rare random-code collision (UNIQUE constraint).
+        // Retry on the rare random-code collision (UNIQUE constraint in database).
         for ($attempt = 0; $attempt < self::MAX_ATTEMPTS; $attempt++) {
             $code = self::generateCode();
             try {

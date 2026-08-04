@@ -23,7 +23,7 @@ class Database
     }
 
     /**
-     * Idempotent: creates the database file and schema if missing.
+     * Create the database file and schema if missing.
      */
     public static function init(): void
     {
