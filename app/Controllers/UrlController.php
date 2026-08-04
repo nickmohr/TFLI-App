@@ -14,7 +14,7 @@ class UrlController
     {
 
         $post = filter_input_array(INPUT_POST, [
-            'url' => FILTER_SANITIZE_URL,
+            'url' => FILTER_UNSAFE_RAW,
             'expires_at' => FILTER_UNSAFE_RAW,
         ]);
 
@@ -51,7 +51,7 @@ class UrlController
             $shortUrl = Router::baseUrl() . '/url/' . $existing['code'];
         } else {
             try {
-                $code = (new Url())->createCode($url, $expiresAt);
+                $code = Url::createCode($url, $expiresAt);
                 $shortUrl = Router::baseUrl() . '/url/' . $code;
             } catch (\RuntimeException $e) {
                 //catch the exception and respond with an error message instead of throwing it
@@ -78,6 +78,7 @@ class UrlController
         }
 
         header('Location: ' . $row['long_url'], true, 302);
+        header('Cache-Control: no-cache, no-store');
         exit;
     }
 }

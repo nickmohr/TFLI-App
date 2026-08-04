@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var string $nonce
+ */
+?>
+
 <?php if (isset($error)): ?>
     <div class="mb-4 p-3 rounded bg-red-100 text-red-800"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div>
 <?php endif; ?>
