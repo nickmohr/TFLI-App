@@ -108,12 +108,18 @@
             submitButton.textContent = 'Shortening';
 
             try {
+                const body = new FormData(form);
+                // Sort local time to UTC for the backend - https://stackoverflow.com/questions/948532/how-to-convert-a-date-to-utc
+                if (body.get('expires_at')) {
+                    body.set('expires_at', new Date(body.get('expires_at')).toISOString().slice(0, 16));
+                }
+
                 const response = await fetch('/', {
                     method: 'POST',
                     headers: {
                         Accept: 'application/json'
                     },
-                    body: new FormData(form),
+                    body,
                 });
                 const data = await response.json();
 
