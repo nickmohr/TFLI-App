@@ -10,6 +10,9 @@ use App\Controllers\IndexController;
 use App\Controllers\UrlController;
 use App\Services\Database;
 use App\Services\Router;
+use App\Services\Security;
+
+Security::sendSecurityHeaders();
 
 //optional: enable error reporting for development environment
 if (APP_ENV === 'development') {

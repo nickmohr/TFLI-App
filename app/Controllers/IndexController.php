@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Services\View;
+use App\Services\Security;
 
 class IndexController
 {
     public function index(): void
     {
-        View::render('index', 200);
+        $nonce = Security::cspNonce();
+        View::render('index', 200, ['nonce' => $nonce]);
     }
 }

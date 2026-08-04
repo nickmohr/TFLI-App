@@ -47,6 +47,10 @@ class Router
      */
     public static function baseUrl(): string
     {
+        // If APP_ENV is set to 'production' and APP_URL is defined, use it as the base URL.
+        if (defined('APP_ENV') && APP_ENV === 'production' && defined('APP_URL')) {
+            return APP_URL;
+        }
         $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
         $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
         return $scheme . '://' . $host;

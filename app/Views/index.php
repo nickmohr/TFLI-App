@@ -22,7 +22,7 @@
 
 <div id="result" class="hidden mt-4 p-3 rounded break-all"></div>
 
-<script>
+<script nonce="<?= htmlspecialchars($nonce, ENT_QUOTES, 'UTF-8') ?>">
     (() => {
         'use strict';
 
