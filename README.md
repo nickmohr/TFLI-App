@@ -35,7 +35,12 @@ Only `public/` should ever be exposed by the web server. The SQLite database liv
 
    The defaults (`APP_ENV = 'development'`) work as-is for local use.
 
-3. **Run the built-in server**
+3. **Make sure app/Data folder is writable by the www process**
+   ```bash
+      chmod 0744 app/Data
+   ```
+
+4. **Run the built-in server**
 
    ```bash
    php -S localhost:8000 -t public/
