@@ -2,4 +2,5 @@ app/config.php
 vendor
 composer.lock
 database.sqlite
+app/Data/error.log
 .php-cs-fixer.cache

@@ -12,18 +12,23 @@ use App\Services\Database;
 use App\Services\Router;
 use App\Services\Security;
 
+Security::startSession();
 Security::sendSecurityHeaders();
 
 //optional: enable error reporting for development environment
 if (APP_ENV === 'development') {
+    error_reporting(E_ALL);
     ini_set('display_errors', '1');
     ini_set('display_startup_errors', '1');
-    error_reporting(E_ALL);
+
 } else {
+    error_reporting(E_ALL);
     ini_set('display_errors', '0');
     ini_set('display_startup_errors', '0');
-    error_reporting(0);
+
 }
+ini_set('log_errors', '1');
+ini_set('error_log', APP_ROOT . '/app/Data/error.log');
 
 Database::init();
 
