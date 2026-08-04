@@ -43,7 +43,7 @@ class UrlController
         }
 
         if (!empty($errors)) {
-            View::renderJson($errors, 400);
+            View::renderJson(['success' => false, 'errors' => $errors], 400);
             return;
         }
 
@@ -55,12 +55,12 @@ class UrlController
                 $shortUrl = Router::baseUrl() . '/url/' . $code;
             } catch (\RuntimeException $e) {
                 //catch the exception and respond with an error message instead of throwing it
-                View::renderJson(['error' => 'Failed to generate a unique short code. Please try again.'], 500);
+                View::renderJson(['success' => false, 'error' => 'Failed to generate a unique short code. Please try again.'], 500);
                 return;
             }
         }
 
-        View::renderJson(['short_url' => $shortUrl], 201);
+        View::renderJson(['success' => true, 'short_url' => $shortUrl], 201);
         return;
     }
 
